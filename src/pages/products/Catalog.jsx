@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./catalog.scss";
 import Televisors from "./TV/Televisors";
 import Smartfons from "./Smartfon/Smartfons";
 import Computers from "./Computers/Computers";
+import axios from "axios";
 
 export const Catalog = () => {
-  const [category, setCategory] = useState("Смартфоны");
+  const [category, setCategory] = useState(2);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleRadioChange = (event) => {
-    setCategory(event.target.value);
+    const selectedId = parseInt(event.target.value);
+    setCategory(selectedId);
+    fetchProductsByCategory(selectedId);
   };
 
   const handleSelectChange = (event) => {
-    setCategory(event.target.value);
+    const selectedId = parseInt(event.target.value);
+    setCategory(selectedId);
+    fetchProductsByCategory(selectedId);
+  };
+
+  const fetchProductsByCategory = async (categoryId) => {
+    console.log(categoryId, "FFERE");
+    try {
+      const response = await axios.post("/api/products/all", {
+        categoryId: categoryId,
+      });
+
+      const data = await response.data.data;
+      console.log("Получены данные:", data);
+
+      setProducts(data || data || []);
+    } catch (err) {
+      console.error("Ошибка при загрузке товаров:", err);
+
+      setProducts([]);
+    }
   };
 
   return (
@@ -25,7 +50,7 @@ export const Catalog = () => {
             <input
               type="radio"
               name="category"
-              value="Смартфоны"
+              value="2"
               checked={category === "Смартфоны"}
               onChange={handleRadioChange}
             />
@@ -35,7 +60,7 @@ export const Catalog = () => {
             <input
               type="radio"
               name="category"
-              value="Компьютеры"
+              value="3"
               checked={category === "Компьютеры"}
               onChange={handleRadioChange}
             />
@@ -45,7 +70,7 @@ export const Catalog = () => {
             <input
               type="radio"
               name="category"
-              value="Телевизоры"
+              value="1"
               checked={category === "Телевизоры"}
               onChange={handleRadioChange}
             />
@@ -56,17 +81,17 @@ export const Catalog = () => {
         {/* Выпадающий список */}
         <h3>или выберите из списка:</h3>
         <select value={category} onChange={handleSelectChange}>
-          <option value="Смартфоны">Смартфоны</option>
-          <option value="Компьютеры">Компьютеры</option>
-          <option value="Телевизоры">Телевизоры</option>
+          <option value="2">Смартфоны</option>
+          <option value="3">Компьютеры</option>
+          <option value="1">Телевизоры</option>
         </select>
       </div>
       <div className="polka"></div>
 
       {/* Отображение компонентов по выбранной категории */}
-      {category === "Смартфоны" && <Smartfons />}
-      {category === "Телевизоры" && <Televisors />}
-      {category === "Компьютеры" && <Computers />}
+      {category === 2 && <Smartfons data={products} category={category} />}
+      {category === 1 && <Televisors data={products} category={category} />}
+      {category === 3 && <Computers data={products} category={category} />}
     </>
   );
 };
