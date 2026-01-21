@@ -17,7 +17,7 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://10.16.1.156:3000', // ← ИЗМЕНИЛ localhost вместо IP
+        target: 'http://10.16.1.175:3000', // ← ИЗМЕНИЛ localhost вместо IP
         changeOrigin: true,
         secure: false,
         // Для отладки
@@ -31,12 +31,12 @@ export default defineConfig({
         }
       },
       '/rest': {
-        target: 'http://10.16.1.156:3000', // ← тоже localhost
+        target: 'http://10.16.1.175:3000', // ← тоже localhost
         changeOrigin: true,
         secure: false,
       },
       '/policy': {
-        target: 'http://10.16.1.156:3000', // ← тоже localhost
+        target: 'http://10.16.1.175:3000', // ← тоже localhost
         changeOrigin: true,
         secure: false,
       },

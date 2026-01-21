@@ -3,6 +3,7 @@ import "./catalog.scss";
 import Televisors from "./TV/Televisors";
 import Smartfons from "./Smartfon/Smartfons";
 import Computers from "./Computers/Computers";
+import ProductCard from "./Smartfon/SmartphonesCard/ProductCard";
 import axios from "axios";
 
 export const Catalog = () => {
@@ -38,6 +39,10 @@ export const Catalog = () => {
 
       setProducts([]);
     }
+  };
+
+  const handleProductClick = (id) => {
+    console.log(id, "ID");
   };
 
   return (
@@ -89,9 +94,14 @@ export const Catalog = () => {
       <div className="polka"></div>
 
       {/* Отображение компонентов по выбранной категории */}
-      {category === 2 && <Smartfons data={products} category={category} />}
+      <div className="products-grid">
+        {products.map((product) => (
+          <ProductCard category={category} key={product.id} product={product} />
+        ))}
+      </div>
+      {/* {category === 2 && <Smartfons data={products} category={category} />}
       {category === 1 && <Televisors data={products} category={category} />}
-      {category === 3 && <Computers data={products} category={category} />}
+      {category === 3 && <Computers data={products} category={category} />} */}
     </>
   );
 };

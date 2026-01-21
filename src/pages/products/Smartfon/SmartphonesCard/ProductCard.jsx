@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Star, ShoppingCart, Eye, Zap } from "lucide-react";
 import "./smart.scss";
 const ProductCard = ({ product, onProductClick, category }) => {
@@ -7,13 +8,17 @@ const ProductCard = ({ product, onProductClick, category }) => {
   const formatPrice = (price) => {
     return new Intl.NumberFormat("ru-RU").format(price);
   };
-
+  const navigate = useNavigate();
   const calculateDiscount = () => {
     if (product.oldPrice && product.oldPrice > product.price) {
       const discount = Math.round((1 - product.price / product.oldPrice) * 100);
       return discount;
     }
     return null;
+  };
+
+  const handleCardClick = () => {
+    navigate(`/product/${category}/${product.id}`);
   };
   const getCategoryName = (categoryId) => {
     switch (categoryId) {
@@ -32,7 +37,7 @@ const ProductCard = ({ product, onProductClick, category }) => {
 
   return (
     <div className="product-card-wrapper">
-      <div className="product-card" onClick={() => onProductClick(product.id)}>
+      <div className="product-card" onClick={handleCardClick}>
         {/* Бейдж скидки */}
         {discount && <div className="discount-badge">-{discount}%</div>}
 
@@ -72,7 +77,9 @@ const ProductCard = ({ product, onProductClick, category }) => {
 
           {/* Цена */}
           <div className="product-pricing">
-            <div className="price-current">{formatPrice(product.price)} ₽</div>
+            <div className="price-current">
+              Цена: {formatPrice(product.price)} ₽
+            </div>
             {product.oldPrice && product.oldPrice > product.price && (
               <div className="price-old">{formatPrice(product.oldPrice)} ₽</div>
             )}
