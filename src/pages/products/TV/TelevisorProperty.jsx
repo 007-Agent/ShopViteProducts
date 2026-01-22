@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCard from "../Smartfon/SmartphonesCard/ProductCard";
-export default function Computers(props) {
+export default function TelevisorProperty(props) {
   const computers = props.data;
   const category = props.category;
   if (!computers || computers.length === 0) {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./catalog.scss";
-import Televisors from "./TV/Televisors";
-import Smartfons from "./Smartfon/Smartfons";
-import Computers from "./Computers/Computers";
+import Televisors from "./TV/TelevisorProperty";
+import Smartfons from "./Smartfon/SmartfonProperty";
+import Computers from "./Computers/ComputerProperty";
 import ProductCard from "./Smartfon/SmartphonesCard/ProductCard";
 import axios from "axios";
 

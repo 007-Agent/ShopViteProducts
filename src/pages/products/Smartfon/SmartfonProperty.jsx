@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCard from "./SmartphonesCard/ProductCard";
 
-const Smartfons = (props) => {
+const SmartfonProperty = (props) => {
   const smartphones = props.data;
   const category = props.category;
   if (!smartphones || smartphones.length === 0) {
@@ -39,4 +39,4 @@ const Smartfons = (props) => {
     </div>
   );
 };
-export default Smartfons;
+export default SmartfonProperty;
