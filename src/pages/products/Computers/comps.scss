@@ -1,0 +1,272 @@
+.computer-specs {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+  }
+
+  &__brand-badge {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+  }
+}
+
+.spec-section {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 18px;
+  border-left: 4px solid #3b82f6;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  &:nth-child(2) {
+    border-left-color: #8b5cf6;
+  }
+
+  &:nth-child(3) {
+    border-left-color: #10b981;
+  }
+
+  &:nth-child(4) {
+    border-left-color: #f59e0b;
+  }
+
+  &:nth-child(5) {
+    border-left-color: #ef4444;
+  }
+
+  &:nth-child(6) {
+    border-left-color: #6366f1;
+  }
+
+  &:nth-child(7) {
+    border-left-color: #14b8a6;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #334155;
+    margin: 0 0 16px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  &__icon {
+    font-size: 1.25rem;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 6px;
+    border-radius: 6px;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px dashed #e2e8f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  &__value {
+    font-size: 0.875rem;
+    color: #1e293b;
+    font-weight: 600;
+    text-align: right;
+    flex: 1;
+    padding-left: 10px;
+  }
+}
+
+.specs-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #0ea5e9;
+
+  &__icon {
+    font-size: 1.25rem;
+    color: #0ea5e9;
+    margin-top: 2px;
+  }
+
+  &__text {
+    font-size: 0.875rem;
+    color: #0369a1;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .computer-specs {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .computer-specs__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .computer-specs__title {
+    font-size: 1.25rem;
+    
+    &::after {
+      width: 40px;
+    }
+  }
+
+  .spec-section {
+    padding: 14px;
+  }
+
+  .spec-section__title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .spec-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    &__value {
+      text-align: left;
+      padding-left: 0;
+    }
+  }
+
+  .specs-note {
+    padding: 12px;
+    
+    &__text {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Темная тема
+@media (prefers-color-scheme: dark) {
+  .computer-specs {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .computer-specs__title {
+    color: #f1f5f9;
+  }
+
+  .computer-specs__header {
+    border-color: #334155;
+  }
+
+  .spec-section {
+    background: #334155;
+    
+    &__title {
+      color: #cbd5e1;
+      border-color: #475569;
+    }
+  }
+
+  .spec-item {
+    border-color: #475569;
+
+    &__label {
+      color: #94a3b8;
+    }
+
+    &__value {
+      color: #f8fafc;
+    }
+  }
+
+  .specs-note {
+    background: linear-gradient(135deg, #1e3a8a, #1e40af);
+    border-color: #3b82f6;
+
+    &__icon {
+      color: #60a5fa;
+    }
+
+    &__text {
+      color: #93c5fd;
+    }
+  }
+}
