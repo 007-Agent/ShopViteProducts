@@ -27,13 +27,11 @@ export default function ProductDetail() {
         // Запрос к вашему API
         const response = await api.post("/api/property/all", {
           moment_id: parseInt(id),
-          categoryId:  parseInt(category),
+          categoryId: parseInt(category),
         });
-        const data = await response.json();
-
-        if (!response.ok) throw new Error(data.error || "Ошибка загрузки");
-
-        setProduct(data);
+        const data = await response.data.data;
+        console.log(data, "DDDD");
+        setProduct(data[0]);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -43,20 +41,8 @@ export default function ProductDetail() {
 
     fetchProduct();
   }, [id, category]);
-
+  console.log(product, "product");
   // Функция для рендеринга нужного шаблона
-  const renderSpecsTemplate = () => {
-    if (!product?.specifications) return null;
-
-    switch (category) {
-      case 2:
-        return <SmartfonProperty specs={product.specifications} />;
-      case 1:
-        return <TelevisorProperty specs={product.specifications} />;
-      case 3:
-        return <ComputerProperty specs={product.specifications} />;
-    }
-  };
 
   // Функция для иконки категории
   const getCategoryIcon = () => {
@@ -108,6 +94,19 @@ export default function ProductDetail() {
       </div>
     );
   }
+  const renderSpecsTemplate = () => {
+    if (!product?.specifications) return null;
+    const categoryId = parseInt(category);
+    console.log(category, "CATEG");
+    switch (categoryId) {
+      case 2:
+        return <SmartfonProperty specs={product} />;
+      case 1:
+        return <TelevisorProperty specs={product.specifications} />;
+      case 3:
+        return <ComputerProperty specs={product.specifications} />;
+    }
+  };
 
   return (
     <div className="product-detail-page">
@@ -150,9 +149,7 @@ export default function ProductDetail() {
         {/* Блок с ценой и кнопками (общий для всех) */}
         <div className="product-sidebar">
           <div className="price-block">
-            <div className="current-price">
-              {product.price.toLocaleString()} ₽
-            </div>
+            <div className="current-price">{product.price} ₽</div>
             <button className="buy-button">Купить</button>
             <button className="cart-button">В корзину</button>
           </div>
@@ -183,7 +180,10 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-
+      <div className="description-section">
+        <h3>Описание</h3>
+        <p>{product.description}</p>
+      </div>
       {/* Специфические характеристики (рендерим нужный шаблон) */}
       <div className="specifications-section">
         <h2>Технические характеристики</h2>
@@ -191,10 +191,6 @@ export default function ProductDetail() {
       </div>
 
       {/* Общее описание */}
-      <div className="description-section">
-        <h3>Описание</h3>
-        <p>{product.description}</p>
-      </div>
     </div>
   );
 }
