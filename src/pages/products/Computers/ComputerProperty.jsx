@@ -4,7 +4,7 @@ import "./comps.scss";
 
 const ComputerProperty = ({ specs }) => {
   const { specifications, warranty_months, brand, name } = specs;
-
+  console.log(specs.type, "SSSPSS");
   return (
     <div className="computer-specs">
       <div className="computer-specs__header">
@@ -23,26 +23,25 @@ const ComputerProperty = ({ specs }) => {
             <div className="spec-item">
               <span className="spec-item__label">Тип устройства:</span>
               <span className="spec-item__value">
-                {specifications.type || "Ноутбук"}
+                {specs.type || "Ноутбук"}
               </span>
             </div>
             <div className="spec-item">
               <span className="spec-item__label">Процессор:</span>
-              <span className="spec-item__value">
-                {specifications.processor}
-              </span>
+              <span className="spec-item__value">{specs.processor}</span>
             </div>
             <div className="spec-item">
               <span className="spec-item__label">Количество ядер:</span>
               <span className="spec-item__value">
-                {specifications.processor_cores} ядер
+                {specs.processor_cores} ядер
               </span>
             </div>
-            {specifications.processor_ghz && (
+            specs.
+            {specs.processor_ghz && (
               <div className="spec-item">
                 <span className="spec-item__label">Частота процессора:</span>
                 <span className="spec-item__value">
-                  {specifications.processor_ghz} ГГц
+                  {specs.processor_ghz} ГГц
                 </span>
               </div>
             )}
@@ -58,36 +57,28 @@ const ComputerProperty = ({ specs }) => {
           <div className="spec-section__items">
             <div className="spec-item">
               <span className="spec-item__label">Оперативная память:</span>
-              <span className="spec-item__value">{specifications.ram} ГБ</span>
+              <span className="spec-item__value">{specs.ram} ГБ</span>
             </div>
-            {specifications.ram_type && (
+            {specs.ram_type && (
               <div className="spec-item">
                 <span className="spec-item__label">Тип памяти:</span>
-                <span className="spec-item__value">
-                  {specifications.ram_type}
-                </span>
+                <span className="spec-item__value">{specs.ram_type}</span>
               </div>
             )}
-            {specifications.ram_speed && (
+            {specs.ram_speed && (
               <div className="spec-item">
                 <span className="spec-item__label">Скорость памяти:</span>
-                <span className="spec-item__value">
-                  {specifications.ram_speed} МГц
-                </span>
+                <span className="spec-item__value">{specs.ram_speed} МГц</span>
               </div>
             )}
             <div className="spec-item">
               <span className="spec-item__label">Встроенная память:</span>
-              <span className="spec-item__value">
-                {specifications.storage} ГБ
-              </span>
+              <span className="spec-item__value">{specs.storage} ГБ</span>
             </div>
-            {specifications.storage_type && (
+            {specs.storage_type && (
               <div className="spec-item">
                 <span className="spec-item__label">Тип накопителя:</span>
-                <span className="spec-item__value">
-                  {specifications.storage_type}
-                </span>
+                <span className="spec-item__value">{specs.storage_type}</span>
               </div>
             )}
           </div>
@@ -100,18 +91,16 @@ const ComputerProperty = ({ specs }) => {
             Графика
           </h3>
           <div className="spec-section__items">
-            {specifications.gpu && (
+            {specs.gpu && (
               <div className="spec-item">
                 <span className="spec-item__label">Видеокарта:</span>
-                <span className="spec-item__value">{specifications.gpu}</span>
+                <span className="spec-item__value">{specs.gpu}</span>
               </div>
             )}
-            {specifications.gpu_memory && (
+            {specs.gpu_memory && (
               <div className="spec-item">
                 <span className="spec-item__label">Память видеокарты:</span>
-                <span className="spec-item__value">
-                  {specifications.gpu_memory} ГБ
-                </span>
+                <span className="spec-item__value">{specs.gpu_memory} ГБ</span>
               </div>
             )}
           </div>
@@ -127,22 +116,22 @@ const ComputerProperty = ({ specs }) => {
             <div className="spec-item">
               <span className="spec-item__label">Диагональ:</span>
               <span className="spec-item__value">
-                {specifications.screen_size_laptop}"
+                {specs.screen_size_laptop}"
               </span>
             </div>
-            {specifications.screen_resolution_laptop && (
+            {specs.screen_resolution_laptop && (
               <div className="spec-item">
                 <span className="spec-item__label">Разрешение:</span>
                 <span className="spec-item__value">
-                  {specifications.screen_resolution_laptop}
+                  {specs.screen_resolution_laptop}
                 </span>
               </div>
             )}
-            {specifications.screen_refresh_rate && (
+            {specs.screen_refresh_rate && (
               <div className="spec-item">
                 <span className="spec-item__label">Частота обновления:</span>
                 <span className="spec-item__value">
-                  {specifications.screen_refresh_rate} Гц
+                  {specs.screen_refresh_rate} Гц
                 </span>
               </div>
             )}
@@ -150,7 +139,7 @@ const ComputerProperty = ({ specs }) => {
         </div>
 
         {/* Батарея и автономность */}
-        {specifications.battery_life_hours && (
+        {specs.battery_life_hours && (
           <div className="spec-section">
             <h3 className="spec-section__title">
               <span className="spec-section__icon">🔋</span>
@@ -162,7 +151,7 @@ const ComputerProperty = ({ specs }) => {
                   Время работы от батареи:
                 </span>
                 <span className="spec-item__value">
-                  {specifications.battery_life_hours} часов
+                  {specs.battery_life_hours} часов
                 </span>
               </div>
             </div>
@@ -176,51 +165,43 @@ const ComputerProperty = ({ specs }) => {
             Разъемы и подключение
           </h3>
           <div className="spec-section__items">
-            {specifications.usb_ports && (
+            {specs.usb_ports && (
               <div className="spec-item">
                 <span className="spec-item__label">USB-порты:</span>
-                <span className="spec-item__value">
-                  {specifications.usb_ports}
-                </span>
+                <span className="spec-item__value">{specs.usb_ports}</span>
               </div>
             )}
-            {specifications.hdmi_ports && (
+            {specs.hdmi_ports && (
               <div className="spec-item">
                 <span className="spec-item__label">HDMI-порты:</span>
-                <span className="spec-item__value">
-                  {specifications.hdmi_ports}
-                </span>
+                <span className="spec-item__value">{specs.hdmi_ports}</span>
               </div>
             )}
-            {specifications.display_ports && (
+            {specs.display_ports && (
               <div className="spec-item">
                 <span className="spec-item__label">DisplayPort:</span>
-                <span className="spec-item__value">
-                  {specifications.display_ports}
-                </span>
+                <span className="spec-item__value">{specs.display_ports}</span>
               </div>
             )}
-            {specifications.ethernet_gbit && (
+            {specs.ethernet_gbit && (
               <div className="spec-item">
                 <span className="spec-item__label">Ethernet:</span>
                 <span className="spec-item__value">
-                  {specifications.ethernet_gbit} Гбит/с
+                  {specs.ethernet_gbit} Гбит/с
                 </span>
               </div>
             )}
-            {specifications.wifi_standard && (
+            {specs.wifi_standard && (
               <div className="spec-item">
                 <span className="spec-item__label">Wi-Fi:</span>
-                <span className="spec-item__value">
-                  {specifications.wifi_standard}
-                </span>
+                <span className="spec-item__value">{specs.wifi_standard}</span>
               </div>
             )}
-            {specifications.bluetooth_version && (
+            {specs.bluetooth_version && (
               <div className="spec-item">
                 <span className="spec-item__label">Bluetooth:</span>
                 <span className="spec-item__value">
-                  {specifications.bluetooth_version}
+                  {specs.bluetooth_version}
                 </span>
               </div>
             )}
@@ -237,61 +218,51 @@ const ComputerProperty = ({ specs }) => {
             <div className="spec-item">
               <span className="spec-item__label">Операционная система:</span>
               <span className="spec-item__value">
-                {specifications.preinstalled_os || "Не установлена"}
+                {specs.preinstalled_os || "Не установлена"}
               </span>
             </div>
-            {specifications.weight_kg && (
+            {specs.weight_kg && (
               <div className="spec-item">
                 <span className="spec-item__label">Вес:</span>
-                <span className="spec-item__value">
-                  {specifications.weight_kg} кг
-                </span>
+                <span className="spec-item__value">{specs.weight_kg} кг</span>
               </div>
             )}
-            {specifications.cooling_system && (
+            {specs.cooling_system && (
               <div className="spec-item">
                 <span className="spec-item__label">Система охлаждения:</span>
-                <span className="spec-item__value">
-                  {specifications.cooling_system}
-                </span>
+                <span className="spec-item__value">{specs.cooling_system}</span>
               </div>
             )}
-            {specifications.case_type && (
+            {specs.case_type && (
               <div className="spec-item">
                 <span className="spec-item__label">Тип корпуса:</span>
-                <span className="spec-item__value">
-                  {specifications.case_type}
-                </span>
+                <span className="spec-item__value">{specs.case_type}</span>
               </div>
             )}
-            {specifications.motherboard && (
+            {specs.motherboard && (
               <div className="spec-item">
                 <span className="spec-item__label">Материнская плата:</span>
-                <span className="spec-item__value">
-                  {specifications.motherboard}
-                </span>
+                <span className="spec-item__value">{specs.motherboard}</span>
               </div>
             )}
-            {specifications.power_supply && (
+            {specs.power_supply && (
               <div className="spec-item">
                 <span className="spec-item__label">Блок питания:</span>
-                <span className="spec-item__value">
-                  {specifications.power_supply}
-                </span>
+                <span className="spec-item__value">{specs.power_supply}</span>
               </div>
             )}
-            {specifications.rgb_lighting !== undefined && (
+            {specs.rgb_lighting !== undefined && (
               <div className="spec-item">
                 <span className="spec-item__label">RGB-подсветка:</span>
                 <span className="spec-item__value">
-                  {specifications.rgb_lighting ? "Да" : "Нет"}
+                  {specs.rgb_lighting ? "Да" : "Нет"}
                 </span>
               </div>
             )}
             <div className="spec-item">
               <span className="spec-item__label">Гарантия:</span>
               <span className="spec-item__value">
-                {warranty_months} месяцев
+                {specs.warranty_months} месяцев
               </span>
             </div>
           </div>
