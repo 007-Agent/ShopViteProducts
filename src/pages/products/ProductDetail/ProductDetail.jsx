@@ -25,7 +25,7 @@ export default function ProductDetail() {
       try {
         setLoading(true);
         // Запрос к вашему API
-        const response = await api.post("/api/property/all", {
+        const response = await api.post("/api/products/property", {
           moment_id: parseInt(id),
           categoryId: parseInt(category),
         });

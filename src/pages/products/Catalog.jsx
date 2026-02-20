@@ -26,7 +26,7 @@ export const Catalog = () => {
   const fetchProductsByCategory = async (categoryId) => {
     console.log(categoryId, "FFERE");
     try {
-      const response = await axios.post("/api/products/all", {
+      const response = await axios.post("/api/products/category", {
         categoryId: categoryId,
       });
 
