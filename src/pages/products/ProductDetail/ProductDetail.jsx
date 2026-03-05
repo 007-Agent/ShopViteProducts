@@ -5,27 +5,24 @@ import ComputerProperty from "../Computers/ComputerProperty";
 import SmartfonProperty from "../Smartfon/SmartfonProperty";
 import TelevisorProperty from "../TV/TelevisorProperty";
 import axios from "axios";
+import { addToCart } from "../../../redux/slices/productSlice";
+import { useDispatch } from "react-redux";
 import "./detail.scss";
 
-export default function ProductDetail() {
+export default function ProductDetail(props) {
+  console.log(props, "KKLKL")
   const { id, category } = useParams();
   console.log(id, category); // /product/:category/:id
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const api = axios.create({
-    baseURL: "http://localhost:5771", // Базовый URL API
-    timeout: 10000,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
         // Запрос к вашему API
-        const response = await api.post("/api/products/property", {
+        const response = await axios.post("/api/products/property", {
           moment_id: parseInt(id),
           categoryId: parseInt(category),
         });
@@ -57,7 +54,18 @@ export default function ProductDetail() {
         return <Smartphone size={24} />;
     }
   };
-
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: Number(product.price), // преобразуем в число, если нужно
+      articl: product.articl,
+      main_image: product.main_image,
+      quantity: 1,
+    };
+    console.log(cartItem, "iiuiu");
+    dispatch(addToCart(cartItem));
+  };
   // Функция для названия категории
   const getCategoryName = () => {
     const names = {
@@ -151,7 +159,9 @@ export default function ProductDetail() {
           <div className="price-block">
             <div className="current-price">{product.price} ₽</div>
             <button className="buy-button">Купить</button>
-            <button className="cart-button">В корзину</button>
+            <button className="cart-button" onClick={handleAddToCart}>
+              В корзину
+            </button>
           </div>
 
           {/* Общие характеристики (для всех категорий) */}

@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-import cart from './slices/cartSlice';
-
+import userReducer from './slices/checkUser'
+// import cart from './slices/cartSlice';
+import cartReducer from './slices/productSlice'
 export const store = configureStore({
   // хранилище Redux
   reducer: {
-    cart,
+      cart: cartReducer,
+      user: userReducer
   },
 });
