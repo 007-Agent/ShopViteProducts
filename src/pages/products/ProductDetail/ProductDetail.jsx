@@ -9,8 +9,8 @@ import { addToCart } from "../../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
 import "./detail.scss";
 
-export default function ProductDetail(props) {
-  console.log(props, "KKLKL")
+export default function ProductDetail({user}) {
+  console.log(user, "KKLKL")
   const { id, category } = useParams();
   console.log(id, category); // /product/:category/:id
   const [product, setProduct] = useState(null);

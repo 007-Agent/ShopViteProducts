@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "phosphor-react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/slices/checkUser";
+import { logout } from "../redux/slices/checkUser";
+import { clearCart } from "../redux/slices/productSlice";
 import axios from "axios";
 import "./navbar.scss";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState("login");
-
+  const { user, token } = props;
+  const dispatch = useDispatch();
   const openModal = (selectedMode) => {
     setMode(selectedMode);
     setIsOpen(true);
@@ -15,6 +20,11 @@ export const Navbar = () => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const handleExitUser = () => {
+    dispatch(logout());
+    dispatch(clearCart());
   };
 
   const handleSubmit = async (e) => {
@@ -26,15 +36,15 @@ export const Navbar = () => {
     try {
       let response;
       if (mode === "login") {
-        response = await axios.post("/api/user/login", data);
-        
+        dispatch(loginUser({ data }));
+        closeModal();
       } else {
         response = await axios.post("/api/user/register", data);
       }
       console.log(response.data);
-      closeModal(); // например, закрываем после успеха
+      // например, закрываем после успеха
     } catch (error) {
-      console.error("Ошибка:", error.response?.data || error.message);
+      console.error("Ошибка:", error.message);
       // показать ошибку пользователю
     }
   };
@@ -48,10 +58,23 @@ export const Navbar = () => {
           <ShoppingCart size={32} />
         </Link>
       </div>
+      {user || token ? (
+        <div className="login_pos">
+          <button onClick={handleExitUser}>Выйти</button>
+        </div>
+      ) : (
+        <div className="login_pos">
+          <button onClick={() => openModal("login")}>Вход</button>
+          <button onClick={() => openModal("register")}>Регистрация</button>
+        </div>
+      )}
+      {/* <div className="login_pos">
+        <button >Выйти</button>
+      </div>
       <div className="login_pos">
         <button onClick={() => openModal("login")}>Вход</button>
         <button onClick={() => openModal("register")}>Регистрация</button>
-      </div>
+      </div> */}
 
       {isOpen && (
         <div className="modal-overlay" onClick={closeModal}>

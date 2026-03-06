@@ -10,10 +10,10 @@ import ProductDetail from "./pages/products/ProductDetail/ProductDetail";
 function App() {
   const { user, token } = useSelector((state) => state.user);
   console.log(user, "MCCB")
-  const dispatch = useDispatch();
+ 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar user={user} token={token}/>
       <Routes>
         <Route path="/" element={<Shop />} />
         <Route path="/products" element={<Catalog />} />
