@@ -1,17 +1,72 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./cart.scss";
+import { clearCart } from "../../redux/slices/productSlice";
 import { CartItem } from "./cartItem";
-export const Cart = () => {
+import axios from "axios";
+export const Cart = (props) => {
+  const user = props.user;
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-  console.log(cartItems, "RTRT")
+  console.log(cartItems, props.user, "RTRT");
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
+  // const handleCheckout = () => {
+  //   const orderData = {
+  //     user: {
+  //       name: user.name,
+  //       email: user.email,
+  //       phone: user.phone || "",
+  //       address: user.address,
+  //     },
+  //     items: cartItems.map((item) => ({
+  //       product_id: item.id,
+  //       quantity: item.quantity,
+  //     })),
+  //   };
 
+  //   console.log(orderData);
+  // };
+  const handleCheckout = async () => {
+    // Проверка наличия данных пользователя
+    if (
+      !props.user ||
+      !props.user.name ||
+      !props.user.email ||
+      !props.user.address
+    ) {
+      alert("Пожалуйста, заполните все данные покупателя");
+
+      return;
+    }
+
+    const orderData = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone || "",
+      address: user.address,
+      items: cartItems.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      const response = await axios.post("/api/order/create", orderData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // если требуется токен
+        },
+      });
+      console.log("Заказ создан:", response.data);
+    } catch (error) {
+      console.error("Ошибка при создании заказа:", error);
+      alert("Не удалось оформить заказ. Попробуйте позже.");
+    }
+  };
   if (cartItems.length === 0) {
     return (
       <div className="cart-empty">
@@ -31,7 +86,6 @@ export const Cart = () => {
         {cartItems.map((item) => {
           return (
             <CartItem
-              
               key={item.id}
               item={item}
               // name={item.name}
@@ -52,7 +106,7 @@ export const Cart = () => {
           <button onClick={() => dispatch(clearCart())} className="clear-btn">
             Очистить корзину
           </button>
-          <button className="checkout-btn">
+          <button className="checkout-btn" onClick={handleCheckout}>
             Оформить заказ
           </button>
         </div>

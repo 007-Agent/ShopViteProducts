@@ -52,6 +52,7 @@ export const Navbar = (props) => {
   return (
     <div className="navbar">
       <div className="links">
+        <Link to="/orders">Мои заказы</Link>
         <Link to="/">Покупки</Link>
         <Link to="/products">Каталог</Link>
         <Link to="/cart">
