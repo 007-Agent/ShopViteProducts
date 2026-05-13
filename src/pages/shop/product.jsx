@@ -1,7 +1,7 @@
-import React from 'react';
-import './shop.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import React from "react";
+import "./shop.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
 export const Product = ({ id, productName, price, productImage }) => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
@@ -29,7 +29,7 @@ export const Product = ({ id, productName, price, productImage }) => {
         <p>{price} руб</p>
       </div>
       <button onClick={onclickCart} className="addToCartBttn">
-        Добавить в корзину
+        Добавить товар в корзину
       </button>
     </div>
   );
