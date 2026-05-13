@@ -9,8 +9,8 @@ import { addToCart } from "../../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
 import "./detail.scss";
 
-export default function ProductDetail({user}) {
-  console.log(user, "KKLKL")
+export default function ProductDetail({ user }) {
+  console.log(user, "KKLKL");
   const { id, category } = useParams();
   console.log(id, category); // /product/:category/:id
   const [product, setProduct] = useState(null);
@@ -38,6 +38,18 @@ export default function ProductDetail({user}) {
 
     fetchProduct();
   }, [id, category]);
+
+  const handleAddLikeProduct = async () => {
+    try {
+      const response = await axios.post("/api/order/favorite", {
+        id: id,
+        userId: user.id,
+      });
+      console.log(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   console.log(product, "product");
   // Функция для рендеринга нужного шаблона
 
@@ -161,6 +173,9 @@ export default function ProductDetail({user}) {
             <button className="buy-button">Купить</button>
             <button className="cart-button" onClick={handleAddToCart}>
               В корзину
+            </button>
+            <button className="buy-button" onClick={handleAddLikeProduct}>
+              В избранное
             </button>
           </div>
 
